@@ -13,11 +13,16 @@ group = "com.joshmlwood"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-val swaggerVersion: String = "2.9.2"
+val swaggerVersion = "2.9.2"
+val swagger2markupVersion = "1.3.3"
+val junitVersion = "5.4.2"
+val mockitoVersion = "2.23.4"
+val mockitoKotlinVersion = "1.6.0"
 
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -37,11 +42,17 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.springfox:springfox-swagger2:$swaggerVersion")
     implementation("io.springfox:springfox-swagger-ui:$swaggerVersion")
+    implementation("io.github.swagger2markup:swagger2markup:$swagger2markupVersion")
 
     runtimeOnly("com.h2database:h2")
 
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+    testImplementation("org.mockito:mockito-inline:$mockitoVersion")
+    testImplementation("com.nhaarman:mockito-kotlin:$mockitoKotlinVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
+//    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks {
@@ -59,5 +70,12 @@ tasks {
 
     withType<BootRun> {
         systemProperties = System.getProperties().mapKeysTo(mutableMapOf()) { it.key.toString() }
+    }
+
+    withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 }

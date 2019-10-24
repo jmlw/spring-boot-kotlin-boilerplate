@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
 import org.springframework.core.annotation.AliasFor
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -28,7 +29,11 @@ annotation class H2DatabaseTest(
     @get:AliasFor(annotation = EntityScan::class, attribute = "basePackages")
     val entityScan: Array<String> = [],
     @get:AliasFor(annotation = EnableJpaRepositories::class, attribute = "basePackages")
-    val jpaRepositories: Array<String> = []
+    val jpaRepositories: Array<String> = [],
+    @get:AliasFor(annotation = EnableJpaRepositories::class, attribute = "includeFilters")
+    val jpaIncludeFilters: Array<ComponentScan.Filter> = [],
+    @get:AliasFor(annotation = EnableJpaRepositories::class, attribute = "excludeFilters")
+    val jpaExcludeFilters: Array<ComponentScan.Filter> = []
 )
 
 @EnableTransactionManagement

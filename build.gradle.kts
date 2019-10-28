@@ -19,7 +19,6 @@ val junitVersion = "5.4.2"
 val mockitoVersion = "2.23.4"
 val mockitoKotlinVersion = "1.6.0"
 
-
 repositories {
     mavenCentral()
     jcenter()
@@ -52,7 +51,7 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:$mockitoVersion")
     testImplementation("com.nhaarman:mockito-kotlin:$mockitoKotlinVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks {
